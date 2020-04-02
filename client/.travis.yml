@@ -1,0 +1,21 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t react-container -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true react-container npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-east-1'
+  app: 'liftlog-client'
+  env: 'LiftlogClient-env'
+  bucket_name: 'elasticbeanstalk-us-east-1-776164416376'
+  bucket_path: 'liftlog-client'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

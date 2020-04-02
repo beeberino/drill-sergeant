@@ -1,0 +1,52 @@
+version: '3'
+services:
+  db:
+    restart: on-failure
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    ports:
+      - "5432"
+    environment:
+      POSTGRES_PASSWORD: "password"
+  proxy:
+    restart: always
+    depends_on:
+      - "client"
+      - "api"
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3050:80"
+  redis-server:
+    restart: on-failure
+    image: 'redis'
+  api:
+    depends_on:
+      - "db"
+      - "redis-server"
+    restart: always
+    volumes:
+      - ./server:/app
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+  client:
+    restart: always
+    build: 
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+  client-test:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    command: ["yarn", "test"]

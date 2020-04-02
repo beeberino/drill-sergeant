@@ -1,0 +1,457 @@
+  [1m[35m (531.5ms)[0m  [1m[35mCREATE DATABASE "workout_scheduler_development" ENCODING = 'unicode'[0m
+  [1m[35m (442.8ms)[0m  [1m[35mCREATE DATABASE "workout_scheduler_test" ENCODING = 'unicode'[0m
+  [1m[35m (9.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (44.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6776354778053800800)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateWorkout (20200309161856)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6776354778053800800)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6776354778053800800)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateWorkouts (20200309161856)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (45.7ms)[0m  [1m[35mCREATE TABLE "workouts" ("id" bigserial primary key, "plan" jsonb DEFAULT '"{}"' NOT NULL)[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE  INDEX  "index_workouts_on_plan" ON "workouts" USING gin ("plan")[0m
+  [1m[36mprimary::SchemaMigration Create (2.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200309161856"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (25.9ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-03-09 16:57:23.494604"], ["updated_at", "2020-03-09 16:57:23.494604"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6776354778053800800)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6776354778053800800)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateExercises (20200309165751)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (45.9ms)[0m  [1m[35mCREATE TABLE "exercises" ("id" bigserial primary key, "name" character varying)[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200309165751"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (42.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6776354778053800800)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (41.1ms)[0m  [1m[34mSELECT VERSION()[0m
+  ↳ (erb):38:in `migration_template'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6776354778053800800)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseTokenAuthCreateUsers (20200309180808)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (46.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "provider" character varying DEFAULT 'email' NOT NULL, "uid" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "allow_password_change" boolean DEFAULT FALSE, "remember_created_at" timestamp, "confirmation_token" character varying, "confirmed_at" timestamp, "confirmation_sent_at" timestamp, "unconfirmed_email" character varying, "name" character varying, "nickname" character varying, "image" character varying, "email" character varying, "tokens" json, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_uid_and_provider" ON "users"  ("uid", "provider")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_confirmation_token" ON "users"  ("confirmation_token")[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200309180808"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateResults (20200309182211)
+  [1m[35m (40.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.7ms)[0m  [1m[35mCREATE TABLE "results" ("id" bigserial primary key, "quantity" integer, "unit" integer DEFAULT 0, "intensity" integer, "weight" integer)[0m
+  [1m[35m (1.9ms)[0m  [1m[35mALTER TABLE "results" ADD "user_id" bigint[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_results_on_user_id" ON "results"  ("user_id")[0m
+  [1m[35m (7.3ms)[0m  [1m[35mALTER TABLE "results" ADD CONSTRAINT "fk_rails_7f0d5a2cd6"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "results" ADD "workout_id" bigint[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE  INDEX  "index_results_on_workout_id" ON "results"  ("workout_id")[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "results" ADD CONSTRAINT "fk_rails_21d34c19a5"
+FOREIGN KEY ("workout_id")
+  REFERENCES "workouts" ("id")
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "results" ADD "exercise_id" bigint[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE  INDEX  "index_results_on_exercise_id" ON "results"  ("exercise_id")[0m
+  [1m[35m (2.9ms)[0m  [1m[35mALTER TABLE "results" ADD CONSTRAINT "fk_rails_332eb62949"
+FOREIGN KEY ("exercise_id")
+  REFERENCES "exercises" ("id")
+[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200309182211"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6776354778053800800)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6776354778053800800)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateJoinTableWorkoutUser (20200309184323)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "users_workouts" ("workout_id" bigint NOT NULL, "user_id" bigint NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200309184323"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6776354778053800800)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6776354778053800800)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateJoinTableWorkoutUser (20200309184323)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (45.7ms)[0m  [1m[35mDROP TABLE "users_workouts"[0m
+  [1m[36mprimary::SchemaMigration Destroy (1.4ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = $1[0m  [["version", "20200309184323"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateResults (20200309182211)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (40.8ms)[0m  [1m[35mALTER TABLE "results" DROP CONSTRAINT "fk_rails_332eb62949"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "results" DROP COLUMN "exercise_id"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "results" DROP CONSTRAINT "fk_rails_21d34c19a5"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "results" DROP COLUMN "workout_id"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "results" DROP CONSTRAINT "fk_rails_7f0d5a2cd6"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "results" DROP COLUMN "user_id"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE "results"[0m
+  [1m[36mprimary::SchemaMigration Destroy (0.3ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = $1[0m  [["version", "20200309182211"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6776354778053800800)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6776354778053800800)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateResults (20200309182211)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (43.4ms)[0m  [1m[35mCREATE TABLE "results" ("id" bigserial primary key, "intensity" integer)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "results" ADD "user_id" bigint[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE  INDEX  "index_results_on_user_id" ON "results"  ("user_id")[0m
+  [1m[35m (2.0ms)[0m  [1m[35mALTER TABLE "results" ADD CONSTRAINT "fk_rails_7f0d5a2cd6"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "results" ADD "workout_id" bigint[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_results_on_workout_id" ON "results"  ("workout_id")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "results" ADD CONSTRAINT "fk_rails_21d34c19a5"
+FOREIGN KEY ("workout_id")
+  REFERENCES "workouts" ("id")
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "results" ADD "exercise_id" bigint[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_results_on_exercise_id" ON "results"  ("exercise_id")[0m
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "results" ADD CONSTRAINT "fk_rails_332eb62949"
+FOREIGN KEY ("exercise_id")
+  REFERENCES "exercises" ("id")
+[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200309182211"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateJoinTableWorkoutUser (20200309184323)
+  [1m[35m (1.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "users_workouts" ("workout_id" bigint NOT NULL, "user_id" bigint NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200309184323"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_advisory_unlock(6776354778053800800)[0m
+  [1m[35m (3.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6776354778053800800)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateResultUnits (20200309184935)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (43.4ms)[0m  [1m[35mCREATE TABLE "result_units" ("id" bigserial primary key, "quantity" integer, "unit" integer DEFAULT 0)[0m
+  [1m[36mprimary::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200309184935"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_advisory_unlock(6776354778053800800)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6776354778053800800)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateResultUnits (20200309184935)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.2ms)[0m  [1m[35mDROP TABLE "result_units"[0m
+  [1m[36mprimary::SchemaMigration Destroy (0.7ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = $1[0m  [["version", "20200309184935"]]
+  [1m[35m (41.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(6776354778053800800)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6776354778053800800)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateResultUnits (20200309184935)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (43.8ms)[0m  [1m[35mCREATE TABLE "result_units" ("id" bigserial primary key, "quantity" integer, "unit" integer DEFAULT 0)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "result_units" ADD "result_id" bigint[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE  INDEX  "index_result_units_on_result_id" ON "result_units"  ("result_id")[0m
+  [1m[35m (1.8ms)[0m  [1m[35mALTER TABLE "result_units" ADD CONSTRAINT "fk_rails_4f66ebfc60"
+FOREIGN KEY ("result_id")
+  REFERENCES "results" ("id")
+[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200309184935"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6776354778053800800)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6776354778053800800)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6776354778053800800)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/programs" for ::1 at 2020-03-13 13:19:38 -0400
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [GET] "/programs"):
+  
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
+railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
+puma (4.3.3) lib/puma/configuration.rb:228:in `call'
+puma (4.3.3) lib/puma/server.rb:682:in `handle_request'
+puma (4.3.3) lib/puma/server.rb:472:in `process_client'
+puma (4.3.3) lib/puma/server.rb:328:in `block in run'
+puma (4.3.3) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/programs" for ::1 at 2020-03-13 13:20:08 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/programs"):
+  
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
+railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
+puma (4.3.3) lib/puma/configuration.rb:228:in `call'
+puma (4.3.3) lib/puma/server.rb:682:in `handle_request'
+puma (4.3.3) lib/puma/server.rb:472:in `process_client'
+puma (4.3.3) lib/puma/server.rb:328:in `block in run'
+puma (4.3.3) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/" for ::1 at 2020-03-13 13:20:27 -0400
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/thomaswatts/.rbenv/versions/2.6.1/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/thomaswatts/.rbenv/versions/2.6.1/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 9.6ms | Allocations: 201)
+Completed 200 OK in 12ms (Views: 10.7ms | ActiveRecord: 0.0ms | Allocations: 878)
+
+
+Started GET "/" for ::1 at 2020-03-13 13:20:41 -0400
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/thomaswatts/.rbenv/versions/2.6.1/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/thomaswatts/.rbenv/versions/2.6.1/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 12.0ms | Allocations: 192)
+Completed 200 OK in 20ms (Views: 13.8ms | ActiveRecord: 0.0ms | Allocations: 728)
+
+
+Started GET "/programs" for ::1 at 2020-03-13 13:20:49 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/programs"):
+  
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
+railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
+puma (4.3.3) lib/puma/configuration.rb:228:in `call'
+puma (4.3.3) lib/puma/server.rb:682:in `handle_request'
+puma (4.3.3) lib/puma/server.rb:472:in `process_client'
+puma (4.3.3) lib/puma/server.rb:328:in `block in run'
+puma (4.3.3) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/workouts" for ::1 at 2020-03-13 13:23:04 -0400
+Processing by WorkoutsController#index as HTML
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 61ms (Views: 0.9ms | ActiveRecord: 51.1ms | Allocations: 1829)
+
+
+Started GET "/workouts" for ::1 at 2020-03-13 13:23:25 -0400
+Processing by WorkoutsController#index as HTML
+  [1m[35m (8.8ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 8.8ms | Allocations: 598)
+
+
+Started GET "/workouts.json" for ::1 at 2020-03-13 13:25:25 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (25.3ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 28ms (Views: 0.2ms | ActiveRecord: 25.3ms | Allocations: 603)
+
+
+Started GET "/workouts.json" for ::1 at 2020-03-13 13:26:11 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 27ms (Views: 0.3ms | ActiveRecord: 14.8ms | Allocations: 1593)
+
+
+Started GET "/workouts.json" for ::1 at 2020-03-13 13:27:12 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (4.8ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 4.8ms | Allocations: 587)
+
+
+Started GET "/workouts.json" for ::1 at 2020-03-13 13:27:20 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.6ms | Allocations: 602)
+
+
+Started GET "/workouts.json" for ::1 at 2020-03-13 13:33:45 -0400
+  [1m[35m (41.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WorkoutsController#index as JSON
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 16ms (Views: 0.9ms | ActiveRecord: 2.6ms | Allocations: 1739)
+
+
+Started GET "/workouts.json" for ::1 at 2020-03-13 13:36:00 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (4.5ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 4.5ms | Allocations: 607)
+
+
+Started GET "/workouts.json" for ::1 at 2020-03-13 13:39:27 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (7.9ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 15ms (Views: 0.2ms | ActiveRecord: 7.9ms | Allocations: 607)
+
+
+Started GET "/workouts.json" for ::1 at 2020-03-13 13:43:09 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (22.7ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 28ms (Views: 0.2ms | ActiveRecord: 22.7ms | Allocations: 607)
+
+
+Started GET "/workouts" for ::1 at 2020-03-13 13:55:48 -0400
+Processing by WorkoutsController#index as */*
+  [1m[35m (2.8ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 2.8ms | Allocations: 609)
+
+
+Started GET "/workouts" for ::1 at 2020-03-13 14:02:21 -0400
+Processing by WorkoutsController#index as */*
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 0.8ms | Allocations: 619)
+
+
+Started GET "/workouts.json" for ::1 at 2020-03-13 14:02:42 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (8.9ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 12ms (Views: 0.2ms | ActiveRecord: 8.9ms | Allocations: 588)
+
+
+Started GET "/workouts.json" for 127.0.0.1 at 2020-03-13 15:36:20 -0400
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WorkoutsController#index as JSON
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 8ms (Views: 0.6ms | ActiveRecord: 1.9ms | Allocations: 1738)
+
+
+Started GET "/workouts.json" for 127.0.0.1 at 2020-03-13 15:36:45 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (23.0ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 25ms (Views: 0.3ms | ActiveRecord: 23.0ms | Allocations: 606)
+
+
+Started GET "/workouts.json" for 127.0.0.1 at 2020-03-13 15:36:51 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.7ms | Allocations: 606)
+
+
+Started GET "/workouts.json" for 127.0.0.1 at 2020-03-13 15:38:10 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (10.1ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 13ms (Views: 0.5ms | ActiveRecord: 10.1ms | Allocations: 606)
+
+
+Started GET "/workouts.json" for 127.0.0.1 at 2020-03-13 15:39:46 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (2.5ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 2.5ms | Allocations: 587)
+
+
+Started GET "/workouts.json" for 127.0.0.1 at 2020-03-13 15:39:59 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.4ms | Allocations: 606)
+
+
+Started GET "/workouts.json" for 127.0.0.1 at 2020-03-13 15:40:52 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (24.6ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 27ms (Views: 0.3ms | ActiveRecord: 24.6ms | Allocations: 587)
+
+
+Started GET "/workouts.json" for 127.0.0.1 at 2020-03-13 15:43:11 -0400
+Processing by WorkoutsController#index as JSON
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "workouts"."plan" FROM "workouts"[0m
+  ↳ app/controllers/workouts_controller.rb:3:in `index'
+Completed 200 OK in 25ms (Views: 0.3ms | ActiveRecord: 2.2ms | Allocations: 1613)
+
+
+  [1m[35m (3.0ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6776354778053800800)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddTimestampsToResults (20200314150909)
+  [1m[35m (40.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (8.6ms)[0m  [1m[35mALTER TABLE "results" ADD "created_at" timestamp(6) NOT NULL[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "results" ADD "updated_at" timestamp(6) NOT NULL[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200314150909"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (44.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6776354778053800800)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6776354778053800800)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddNameAndAuthorToWorkouts (20200314151303)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.2ms)[0m  [1m[35mALTER TABLE "workouts" ADD "name" character varying NOT NULL[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "workouts" ADD "author_id" bigint[0m
+  [1m[35m (9.2ms)[0m  [1m[35mCREATE  INDEX  "index_workouts_on_author_id" ON "workouts"  ("author_id")[0m
+  [1m[35m (14.7ms)[0m  [1m[35mALTER TABLE "workouts" ADD CONSTRAINT "fk_rails_d60971b0ef"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[36mprimary::SchemaMigration Create (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200314151303"]]
+  [1m[35m (3.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(6776354778053800800)[0m
+  [1m[35m (3.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 172.19.0.1 at 2020-03-31 19:45:08 +0000
+  [1m[35m (8.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 26.5ms | Allocations: 473)
+Completed 200 OK in 91ms (Views: 54.9ms | ActiveRecord: 0.0ms | Allocations: 2584)
+
+
