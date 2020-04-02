@@ -1,4 +1,1 @@
-/server/log/*
-/server/tmp/*
-!/server/log/.keep
-!/server/tmp/.keep
+server/tmp/
