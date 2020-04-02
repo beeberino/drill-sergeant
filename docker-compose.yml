@@ -1,7 +1,6 @@
 version: '3'
 services:
   db:
-    restart: on-failure
     image: postgres
     volumes:
       - ./server/tmp/db:/var/lib/postgresql/data
@@ -19,13 +18,9 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "3050:80"
-  redis-server:
-    restart: on-failure
-    image: 'redis'
   api:
     depends_on:
       - "db"
-      - "redis-server"
     restart: always
     volumes:
       - ./server:/app
