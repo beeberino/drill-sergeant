@@ -7,7 +7,7 @@ before_install:
 
 script:
   - docker run -e CI=true drill-sergeant_client yarn test
-  - docker run --rm drill-sergeant_server bundle exec rake
+  - docker run --rm drill-sergeant_api bundle exec rake
 
 after_success:
   - docker build -t beeberino/drill-sergeant-client ./client
