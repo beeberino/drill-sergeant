@@ -7,6 +7,7 @@ before_install:
 
 script:
   - docker-compose ps
+  - docker run -it drill-sergeant_api ping db -w3
   - docker run -e CI=true drill-sergeant_client yarn test
   - docker run --rm drill-sergeant_api bundle exec rake
 
