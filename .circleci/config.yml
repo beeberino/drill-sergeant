@@ -9,10 +9,10 @@ jobs:
       - run: docker-compose run -e CI=true client yarn test
       - run: docker-compose run --rm api bundle exec rake db:setup
       - run: docker-compose run --rm api bundle exec rake
-      - run: docker build -t beeberino/drill-sergeant-client ./client
-      - run: docker build -t beeberino/drill-sergeant-proxy ./nginx
-      - run: docker build -t beeberino/drill-sergeant-server ./server
-      - run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-      - run: docker push beeberino/drill-sergeant-client
-      - run: docker push beeberino/drill-sergeant-proxy
-      - run: docker push beeberino/drill-sergeant-server
+      - run: docker build -t tawatts3/drill-sergeant-client ./client
+      - run: docker build -t tawatts3/drill-sergeant-proxy ./nginx
+      - run: docker build -t tawatts3/drill-sergeant-server ./server
+      - run: docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD" docker.io
+      - run: docker push tawatts3/drill-sergeant-client
+      - run: docker push tawatts3/drill-sergeant-proxy
+      - run: docker push tawatts3/drill-sergeant-server
