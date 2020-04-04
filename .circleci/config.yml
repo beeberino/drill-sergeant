@@ -1,0 +1,17 @@
+version: 2
+jobs: 
+  build:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: docker-compose up -d
+      - run: docker run -e CI=true drill-sergeant_client yarn test
+      - run: docker run --rm drill-sergeant_api bundle exec rake
+      - run: docker build -t beeberino/drill-sergeant-client ./client
+      - run: docker build -t beeberino/drill-sergeant-proxy ./nginx
+      - run: docker build -t beeberino/drill-sergeant-server ./server
+      - run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+      - run: docker push beeberino/drill-sergeant-client
+      - run: docker push beeberino/drill-sergeant-proxy
+      - run: docker push beeberino/drill-sergeant-server
