@@ -7,6 +7,8 @@ jobs:
       - checkout
       - run: docker-compose up -d
       - run: sleep 5
+      - run: docker run -it drillsergeant_api ping drillsergeant_db -w3
+      - run: docker run -it drillsergeant_api ping db -w3
       - run: docker run -e CI=true drillsergeant_client yarn test
       - run: docker run --rm drillsergeant_api bundle exec rake
       - run: docker build -t beeberino/drill-sergeant-client ./client
