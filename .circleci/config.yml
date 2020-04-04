@@ -6,11 +6,8 @@ jobs:
     steps:
       - checkout
       - run: docker-compose up -d
-      - run: docker-compose ps
-      - run: docker run -it drillsergeant_api ping drillsergeant_db -w3
-      - run: docker run -it drillsergeant_api ping db -w3
-      - run: docker run -e CI=true drillsergeant_client yarn test
-      - run: docker run --rm drillsergeant_api bundle exec rake
+      - run: docker-compose run -e CI=true client yarn test
+      - run: docker-compose run --rm api bundle exec rake
       - run: docker build -t beeberino/drill-sergeant-client ./client
       - run: docker build -t beeberino/drill-sergeant-proxy ./nginx
       - run: docker build -t beeberino/drill-sergeant-server ./server
